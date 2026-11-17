@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASJ Multiverse — 賦能企業，解鎖無限可能</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f4f3ee;--ink:#0e0e0e;--muted:#6b6b66;--line:rgba(14,14,14,.12);--lime:#d4ff3a;--violet:#5b3cff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Space Grotesk","Noto Sans TC","PingFang TC",sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  .zh{font-family:"Noto Sans TC","PingFang TC",sans-serif}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+  svg.i{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;display:block}
+
+  /* Nav */
+  nav{position:fixed;top:16px;left:0;right:0;z-index:50}
+  nav .bar{display:flex;align-items:center;justify-content:space-between;background:rgba(244,243,238,.8);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:10px 10px 10px 24px}
+  .logo{font-weight:700;letter-spacing:-.5px;font-size:18px;display:flex;align-items:center;gap:10px}
+  .logo .dots{display:flex}
+  .logo .dots i{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink);margin-left:-5px}
+  .logo .dots i:first-child{margin-left:0;background:var(--lime)}
+  .logo .dots i:last-child{background:var(--violet);border-color:var(--violet)}
+  nav ul{display:flex;gap:34px;list-style:none;font-size:14px}
+  nav ul a{position:relative}
+  nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:0;background:var(--ink);transition:.3s}
+  nav ul a:hover::after{width:100%}
+  .pill{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;font-weight:500;font-size:14px;transition:.3s;border:1.5px solid var(--ink);cursor:pointer;font-family:inherit}
+  .pill svg{width:16px;height:16px;transition:.3s}
+  .pill:hover svg{transform:translateX(4px)}
+  .pill-dark{background:var(--ink);color:var(--paper)}
+  .pill-dark:hover{background:var(--violet);border-color:var(--violet)}
+  .pill-line{background:transparent}
+  .pill-line:hover{background:var(--lime)}
+  .pill-lime{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+  .pill-lime:hover{background:#fff;border-color:#fff}
+
+  /* Hero */
+  .hero{min-height:100vh;padding:150px 0 60px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+  .kicker{font-size:13px;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:28px}
+  .kicker::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--violet);box-shadow:0 0 0 4px rgba(91,60,255,.15)}
+  .hero h1{font-family:"Noto Sans TC",sans-serif;font-weight:900;font-size:clamp(46px,7.2vw,104px);line-height:1.05;letter-spacing:-2px;margin-bottom:22px}
+  .hl{position:relative;display:inline-block;z-index:0}
+  .hl::after{content:"";position:absolute;left:-4px;right:-4px;bottom:8%;height:32%;background:var(--lime);z-index:-1;transform:skew(-8deg)}
+  .outline{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+  .hero .en{font-size:clamp(16px,1.6vw,20px);color:var(--muted);margin-bottom:26px}
+  .hero p.lead{max-width:560px;font-size:16.5px;color:#33332f;margin-bottom:36px}
+  .ctas{display:flex;gap:12px;flex-wrap:wrap}
+
+  .verse{position:relative;width:100%;max-width:480px;aspect-ratio:1;margin-left:auto}
+  .verse svg{width:100%;height:100%;overflow:visible}
+  .verse .c{fill:none;stroke:var(--ink);stroke-width:1.2}
+  .spin{transform-origin:240px 240px;animation:spin 30s linear infinite}
+  .spin.r{animation-direction:reverse;animation-duration:45s}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .chip{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.06);animation:float 6s ease-in-out infinite}
+  .chip svg{width:20px;height:20px}
+  .chip b{display:block;font-size:11px;color:var(--muted);font-weight:400;letter-spacing:1px}
+  .chip.a{top:6%;left:-4%}.chip.b{top:44%;right:-8%;animation-delay:-2s}.chip.c{bottom:4%;left:8%;animation-delay:-4s}
+  @keyframes float{50%{transform:translateY(-10px)}}
+  .hero-meta{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:70px;padding-top:20px;font-size:13px;color:var(--muted)}
+
+  /* Marquee */
+  .marquee{background:var(--ink);color:var(--paper);overflow:hidden;padding:22px 0;transform:rotate(-1.5deg);margin:0 -20px}
+  .track{display:flex;gap:48px;width:max-content;animation:scroll 28s linear infinite;font-size:clamp(22px,3vw,36px);font-weight:700;letter-spacing:-.5px;white-space:nowrap}
+  .track span{display:flex;align-items:center;gap:48px}
+  .track em{font-style:normal;color:var(--lime)}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* Sections */
+  section{padding:130px 0}
+  .label{font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;display:flex;gap:14px;color:var(--muted)}
+  .label b{color:var(--ink);font-weight:500}
+  .statement{font-family:"Noto Sans TC",sans-serif;font-weight:500;font-size:clamp(20px,2.1vw,30px);line-height:1.55;letter-spacing:-.3px;max-width:860px}
+  .statement .mut{color:#b3b2aa}
+  .about-body{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:44px;padding-top:36px;border-top:1px solid var(--line)}
+  .about-body p{color:#33332f;font-size:16px}
+  .about-body strong{background:linear-gradient(transparent 60%,var(--lime) 60%);font-weight:500}
+  .tags{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start}
+  .tags > span{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-size:14px;background:#fff}
+  .tags svg{width:16px;height:16px;color:var(--violet)}
+
+  /* Services bento */
+  #services{background:#ebeae3}
+  .sec-top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:56px;flex-wrap:wrap}
+  .sec-top h2{font-family:"Noto Sans TC",sans-serif;font-weight:900;font-size:clamp(34px,4.6vw,64px);line-height:1.1;letter-spacing:-1.5px}
+  .sec-top p{max-width:340px;color:var(--muted);font-size:15px}
+  .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .svc{background:var(--paper);border-radius:28px;padding:34px;min-height:400px;display:flex;flex-direction:column;justify-content:space-between;transition:.4s;position:relative;overflow:hidden;border:1px solid var(--line)}
+  .svc .top{display:flex;justify-content:space-between;align-items:flex-start}
+  .svc .ic{width:64px;height:64px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;transition:.4s}
+  .svc .ic svg{width:28px;height:28px}
+  .svc .no{font-size:14px;color:var(--muted)}
+  .svc h3{font-family:"Noto Sans TC",sans-serif;font-size:26px;font-weight:700;letter-spacing:-.5px;margin-bottom:4px}
+  .svc .en{font-size:13px;color:var(--violet);margin-bottom:16px;letter-spacing:.3px}
+  .svc p{color:#44443f;font-size:15px}
+  .svc:hover{background:var(--ink);color:var(--paper);transform:translateY(-6px)}
+  .svc:hover p{color:#c9c8c0}.svc:hover .en{color:var(--lime)}
+  .svc:hover .ic{background:var(--lime);border-color:var(--lime);color:var(--ink);transform:rotate(-12deg)}
+  .svc.feat{background:var(--violet);color:#fff;border-color:var(--violet)}
+  .svc.feat p{color:#e1dcff}.svc.feat .en{color:var(--lime)}.svc.feat .no{color:#c9c0ff}
+  .svc.feat .ic{border-color:#fff}
+
+  /* Why */
+  .why-list{border-top:1px solid var(--ink)}
+  .row{display:grid;grid-template-columns:120px 1fr 1.2fr 60px;gap:30px;align-items:center;padding:38px 0;border-bottom:1px solid var(--line);transition:.35s;position:relative}
+  .row:hover{background:var(--lime);padding-left:24px;padding-right:24px}
+  .row .n{font-size:56px;font-weight:700;letter-spacing:-2px;line-height:1}
+  .row h3{font-family:"Noto Sans TC",sans-serif;font-size:28px;font-weight:700;letter-spacing:-.5px;line-height:1.3}
+  .row h3 small{display:block;font-family:"Space Grotesk",sans-serif;font-size:14px;font-weight:400;color:var(--muted);letter-spacing:0}
+  .row p{color:#44443f;font-size:15.5px}
+  .row .ri svg{width:36px;height:36px}
+  .aud{margin-top:50px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:15px;color:var(--muted)}
+  .aud > span{border:1.5px dashed var(--ink);border-radius:999px;padding:8px 18px;color:var(--ink);font-weight:500}
+
+  /* Contact */
+  #contact{background:var(--ink);color:var(--paper);border-radius:40px 40px 0 0;position:relative;overflow:hidden}
+  #contact::before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;border:1px solid rgba(255,255,255,.08);right:-200px;top:-200px;box-shadow:0 0 0 80px rgba(255,255,255,.02),0 0 0 160px rgba(255,255,255,.015)}
+  .ct{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;position:relative}
+  .ct h2{font-family:"Noto Sans TC",sans-serif;font-weight:900;font-size:clamp(36px,5vw,68px);line-height:1.1;letter-spacing:-1.5px;margin-bottom:28px}
+  .ct h2 .lime{color:var(--lime)}
+  .ct p{color:#b8b7b0;max-width:440px;margin-bottom:40px}
+  .mail{display:inline-flex;align-items:center;gap:14px;font-size:clamp(18px,2vw,24px);border-bottom:1.5px solid var(--lime);padding-bottom:6px}
+  .mail svg{width:24px;height:24px;color:var(--lime)}
+  form{display:grid;gap:30px}
+  .f{position:relative}
+  .f label{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#8d8c85}
+  .f input,.f textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.2);color:var(--paper);font:inherit;font-size:18px;padding:10px 0;outline:none;transition:.3s}
+  .f input:focus,.f textarea:focus{border-color:var(--lime)}
+  .f textarea{resize:none;min-height:80px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+
+  footer{background:var(--ink);color:#8d8c85;font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:30px;padding-bottom:30px;border-top:1px solid rgba(255,255,255,.1)}
+  .big-name{font-size:clamp(60px,15vw,220px);font-weight:700;letter-spacing:-6px;line-height:.9;color:#1c1c1a;text-align:center;padding:40px 0 10px;user-select:none;background:var(--ink)}
+
+  @media(max-width:900px){
+    nav ul{display:none}
+    .hero-grid,.about-body,.ct,.two{grid-template-columns:1fr}
+    .verse{margin:30px auto 0;max-width:360px}
+    .bento{grid-template-columns:1fr}
+    .row{grid-template-columns:70px 1fr;gap:16px}
+    .row p{grid-column:1/-1}.row .ri{display:none}
+    .row .n{font-size:40px}
+    section{padding:90px 0}
+  }
+
+  /* Language switch */
+  html:not(.en) .t-en{display:none!important}
+
+  html.en .t-zh{display:none!important}
+  .nav-r{display:flex;align-items:center;gap:8px}
+  .lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:#fff}
+  .lang button{border:none;background:none;font:inherit;font-size:13px;padding:7px 12px;border-radius:999px;cursor:pointer;color:var(--muted);transition:.2s}
+  .lang button.on{background:var(--ink);color:var(--paper)}
+  html.en .hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(40px,5.4vw,80px);letter-spacing:-2.5px;line-height:1.02}
+  html.en .statement,html.en .sec-top h2,html.en .ct h2,html.en .svc h3,html.en .row h3{font-family:"Space Grotesk",sans-serif}
+
+  /* ASJ concept */
+  #asj{padding-top:0}
+  .asj{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}
+  .letter{padding:40px 32px 44px;border-right:1px solid var(--line);transition:.4s}
+  .letter:last-child{border-right:none}
+  .letter .L{font-size:clamp(120px,14vw,200px);font-weight:700;line-height:.85;letter-spacing:-6px;color:transparent;-webkit-text-stroke:1.5px var(--ink);transition:.4s;margin-bottom:28px}
+  .letter:nth-child(1):hover .L{color:var(--lime)}
+  .letter:nth-child(2):hover .L{color:var(--violet);-webkit-text-stroke-color:var(--violet)}
+  .letter:nth-child(3):hover .L{color:var(--ink)}
+  .letter .w{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:700}
+  .letter .w svg{width:24px;height:24px;color:var(--violet)}
+  .letter .w small{font-size:15px;font-weight:400;color:var(--muted)}
+  .letter p{color:#44443f;font-size:15px;margin-top:12px}
+  .asj-eq{margin-top:44px;font-size:clamp(18px,2vw,24px);font-weight:500;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .asj-eq .x{color:var(--violet)}
+  .asj-eq .res{background:var(--ink);color:var(--lime);padding:6px 18px;border-radius:999px}
+  .tagx{display:inline-block;margin-top:8px;font-size:12px;letter-spacing:1px;border:1px solid var(--ink);border-radius:999px;padding:2px 10px;font-family:"Space Grotesk",sans-serif;font-weight:500}
+  .row:hover .tagx{background:var(--ink);color:var(--lime)}
+  /* Process */
+  #process{padding-top:110px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr)}
+  .step{padding:28px 28px 0 0;position:relative}
+  .step::before{content:"";position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--ink)}
+  .step .dot{position:absolute;top:-7px;left:0;width:14px;height:14px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink);transition:.3s}
+  .step:hover .dot{background:var(--lime)}
+  .step:last-child .dot{background:var(--violet);border-color:var(--violet)}
+  .step .sn{font-size:12px;color:var(--muted);margin:10px 0 18px;letter-spacing:2px}
+  .step .si{width:52px;height:52px;border-radius:14px;border:1.5px solid var(--ink);display:grid;place-items:center;margin-bottom:20px;transition:.3s}
+  .step:hover .si{background:var(--ink);color:var(--lime)}
+  .step .si svg{width:24px;height:24px}
+  .step h3{font-size:22px;font-weight:700;margin-bottom:8px}
+  .step p{color:#44443f;font-size:15px}
+  @media(max-width:900px){.steps{grid-template-columns:1fr 1fr;gap:44px 20px}}
+  @media(max-width:900px){.asj{grid-template-columns:1fr}.letter{border-right:none;border-bottom:1px solid var(--line)}nav .pill-dark{display:none}}
+
+  /* Compact mobile layout */
+  @media(max-width:900px){
+    .wrap{padding:0 20px}
+    section{padding:64px 0}
+    #process{padding-top:64px}
+    .hero{min-height:auto;padding:120px 0 40px}
+    .hero-meta{margin-top:36px}
+    .verse{max-width:280px}
+    .statement{font-size:18px;line-height:1.6}
+    .about-body{margin-top:28px;padding-top:24px;gap:24px}
+    .sec-top{margin-bottom:28px;gap:14px}
+    .svc{min-height:auto;gap:36px;padding:26px;border-radius:22px}
+    .letter{display:grid;grid-template-columns:64px 1fr;column-gap:16px;padding:22px 0}
+    .letter .L{font-size:64px;letter-spacing:-2px;margin-bottom:0;grid-row:1 / span 2}
+    .letter .w{font-size:20px}
+    .letter p{margin-top:4px}
+    .asj-eq{margin-top:24px;font-size:16px}
+    .steps{grid-template-columns:1fr;gap:28px}
+    .step{padding-right:0}
+    .row{padding:24px 0}
+    .row:hover{padding-left:12px;padding-right:12px}
+    .aud{margin-top:28px}
+    .ct{gap:40px}
+    .big-name{letter-spacing:-2px;padding-top:24px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="bar">
+      <a href="#" class="logo" title="Agile · Solutions · Journey"><span class="dots"><i></i><i></i><i></i></span>ASJ Multiverse</a>
+      <ul class="zh">
+        <li><a href="#about"><span class="t-zh">關於我們</span><span class="t-en">About Us</span></a></li>
+        <li><a href="#services"><span class="t-zh">服務範圍</span><span class="t-en">Solutions</span></a></li>
+        <li><a href="#why"><span class="t-zh">為什麼選擇我們</span><span class="t-en">Why Us</span></a></li>
+      </ul>
+      <div class="nav-r">
+        <div class="lang" role="group" aria-label="Language"><button data-l="zh" onclick="setLang('zh')"><span class="t-zh">繁</span><span class="t-en">ZH</span></button><button data-l="en" onclick="setLang('en')">EN</button></div>
+        <a href="#contact" class="pill pill-dark zh"><span class="t-zh">聯絡我們</span><span class="t-en">Contact</span><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- 1. Hero -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker">Agile · Solutions · Journey</div>
+        <h1 class="t-zh">靈活創新，<br>開拓<span class="hl">無限</span><br><span class="outline">旅程</span></h1>
+        <h1 class="t-en">Empowering your <span class="hl">Journey</span> with <span class="outline">Agile</span> Solutions</h1>
+        <div class="en"><span class="t-zh">Empowering your Journey with Agile Solutions</span><span class="t-en">Tailor-made apps for SMEs, start-ups and new ventures</span></div>
+        <p class="lead zh"><span class="t-zh">ASJ Multiverse 專為中小企、初創公司及開拓新方向的企業，度身訂造 App 與數碼平台。由全新 App 服務、電商代購到業務自動化，我們以敏捷方式，陪你把構想化為現實。</span><span class="t-en">ASJ Multiverse tailor-makes apps and digital platforms for SMEs, start-ups and companies exploring new directions. From brand-new app services and e-commerce to business automation, we work in agile ways to turn your ideas into reality.</span></p>
+        <div class="ctas zh">
+          <a href="#contact" class="pill pill-dark"><span class="t-zh">聯絡我們</span><span class="t-en">Contact Us</span><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#about" class="pill pill-line"><span class="t-zh">了解更多</span><span class="t-en">Learn More</span></a>
+        </div>
+      </div>
+      <div class="verse" aria-hidden="true">
+        <svg viewBox="0 0 480 480">
+          <g class="spin r">
+            <circle cx="240" cy="240" r="228" class="c" stroke-dasharray="3 7" opacity=".5"/>
+            <circle cx="240" cy="12" r="6" fill="#5b3cff"/>
+            <circle cx="468" cy="240" r="4" fill="#0e0e0e"/>
+          </g>
+          <g class="spin">
+            <circle cx="240" cy="175" r="115" fill="#d4ff3a" style="mix-blend-mode:multiply"/>
+            <circle cx="180" cy="290" r="115" fill="#5b3cff" opacity=".9" style="mix-blend-mode:multiply"/>
+            <circle cx="300" cy="290" r="115" class="c" stroke-width="1.5"/>
+            <circle cx="240" cy="252" r="5" fill="#fff"/>
+          </g>
+        </svg>
+        <div class="chip a"><svg class="i" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg><span><b>A</b>Agile<span class="t-zh"> 敏捷</span></span></div>
+        <div class="chip b"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><span><b>S</b>Solutions<span class="t-zh"> 解決方案</span></span></div>
+        <div class="chip c"><svg class="i" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h8.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H16"/></svg><span><b>J</b>Journey<span class="t-zh"> 旅程</span></span></div>
+      </div>
+    </div>
+    <div class="hero-meta"><span>© ASJ Multiverse Limited</span><span>Agile × Solutions × Journey</span><span>Scroll ↓</span></div>
+  </div>
+</header>
+
+<div class="marquee">
+  <div class="track">
+    <span>Agile <em>✦</em> Solutions <em>✦</em> Journey <em>✦</em> Custom Apps <em>✦</em> E-commerce <em>✦</em> Automation <em>✦</em> AI <em>✦</em></span>
+    <span>Agile <em>✦</em> Solutions <em>✦</em> Journey <em>✦</em> Custom Apps <em>✦</em> E-commerce <em>✦</em> Automation <em>✦</em> AI <em>✦</em></span>
+  </div>
+</div>
+
+<!-- 2. About -->
+<section id="about">
+  <div class="wrap">
+    <div class="label"><b>(01)</b><span class="t-zh">關於我們 — 什麼是 ASJ Multiverse？</span><span class="t-en">About Us — What is ASJ Multiverse?</span></div>
+    <div class="sec-top"><h2><span class="t-zh">ASJ Multiverse<br>應運而生。</span><span class="t-en">Our<br>Vision.</span></h2></div>
+    <p class="statement t-zh">在急速變化的數碼時代，每一家企業都需要獨特的技術來突破重圍。<span class="mut">但開發與維護技術往往成本高昂、費時費力。</span></p>
+    <p class="statement t-en">In a fast-moving digital era, every business needs unique technology to break through. <span class="mut">Yet building and maintaining it is costly and time-consuming.</span> ASJ Multiverse was born to change that.</p>
+    <div class="about-body zh">
+      <p class="t-zh">我們扮演「<strong>技術孵化器</strong>」與「<strong>平台供應者</strong>」的角色，將複雜的底層技術模組化，再按你的需要<strong>度身訂造</strong>。無論你想推出全新的 App 服務、建立代購 / 電商平台，還是將內部營運流程自動化 (Automation)，我們都能提供穩定、安全且具備高度擴展性的解決方案。我們亦營運旗下的出行平台，每一個方案都建基於真實的營運經驗，讓你的業務隨時隨地，無限延伸。</p>
+      <p class="t-en">We act as both a <strong>technology incubator</strong> and a <strong>platform provider</strong>, turning complex core technology into modules we then <strong>tailor-make</strong> to your needs. Whether you want to launch a brand-new app service, build a procurement / e-commerce platform, or automate your internal workflows, we deliver stable, secure and highly scalable solutions. We also run our own mobility platform, so every solution is built on real operating experience — letting your business extend anywhere, anytime, without limits.</p>
+      <div class="tags">
+        <span><svg class="i" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7 15h10"/></svg><span class="t-zh">技術孵化器</span><span class="t-en">Tech Incubator</span></span>
+        <span><svg class="i" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><span class="t-zh">平台供應者</span><span class="t-en">Platform Provider</span></span>
+        <span><svg class="i" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><span class="t-zh">穩定安全</span><span class="t-en">Secure &amp; Stable</span></span>
+        <span><svg class="i" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>AI-ready</span>
+        <span><svg class="i" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 8a4 4 0 0 1-.5 10H7z"/></svg><span class="t-zh">雲端平台</span><span class="t-en">Cloud Platform</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. ASJ concept -->
+<section id="asj">
+  <div class="wrap">
+    <div class="label"><b>(02)</b><span class="t-zh">品牌理念 — ASJ 代表甚麼？</span><span class="t-en">Our Name — What ASJ Stands For</span></div>
+    <div class="sec-top">
+      <h2><span class="t-zh">我們的名字，<br>就是我們的承諾。</span><span class="t-en">Our name is<br>our promise.</span></h2>
+      <p class="zh"><span class="t-zh">A、S、J 三個字母，代表我們做每一個項目的方式——以敏捷思維，交付可靠方案，陪你走好每一段旅程。</span><span class="t-en">Three letters that define how we work on every project — an agile mindset, reliable solutions, and a partner for every step of the journey.</span></p>
+    </div>
+    <div class="asj zh">
+      <div class="letter">
+        <div class="L">A</div>
+        <div class="w"><svg class="i" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg>Agile <small class="t-zh">敏捷</small></div>
+        <p class="t-zh">以敏捷思維開發，模組化技術讓你快速試驗、迅速調整，緊貼市場變化。</p>
+        <p class="t-en">We build with an agile mindset — modular technology lets you test fast, pivot quickly and keep pace with the market.</p>
+      </div>
+      <div class="letter">
+        <div class="L">S</div>
+        <div class="w"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Solutions <small class="t-zh">解決方案</small></div>
+        <p class="t-zh">由度身訂造 App、電商平台到流程自動化，提供穩定、安全、可擴展的一站式技術方案。</p>
+        <p class="t-en">From tailor-made apps and e-commerce platforms to process automation, we deliver stable, secure and scalable end-to-end solutions.</p>
+      </div>
+      <div class="letter">
+        <div class="L">J</div>
+        <div class="w"><svg class="i" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h8.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H16"/></svg>Journey <small class="t-zh">旅程</small></div>
+        <p class="t-zh">重視每一段用戶旅程 (User Journey)，亦與你同行企業的成長旅程——由構想、落地到擴張。</p>
+        <p class="t-en">We design for every user journey — and walk alongside you on your company's growth journey, from idea to launch to scale.</p>
+      </div>
+    </div>
+    <div class="asj-eq">Agile <span class="x">×</span> Solutions <span class="x">×</span> Journey <span class="x">=</span> <span class="res">Multiverse</span></div>
+  </div>
+</section>
+
+<!-- 4. Services -->
+<section id="services">
+  <div class="wrap">
+    <div class="label"><b>(03)</b>Our Solutions</div>
+    <div class="sec-top">
+      <h2><span class="t-zh">我們如何協助<br>您的業務？</span><span class="t-en">How we help<br>your business</span></h2>
+      <p class="zh"><span class="t-zh">每間企業的旅程都不一樣。我們按你的業務模式度身訂造 App 與系統，由構想到上線，一站式搞掂。</span><span class="t-en">Every business journey is different. We tailor-make apps and systems around your business model — from idea to launch, all under one roof.</span></p>
+    </div>
+    <div class="bento zh">
+      <div class="svc feat">
+        <div class="top"><div class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div><span class="no">01 / 03</span></div>
+        <div><h3><span class="t-zh">度身訂造 App 開發</span><span class="t-en">Tailor-made App Development</span></h3><div class="en t-zh">Tailor-made App Development</div>
+        <p class="t-zh">按你的業務模式及目標客群，由零開始設計及開發 iOS、Android 及 Web 應用程式，助你推出全新業務或服務，建立自家品牌。</p>
+        <p class="t-en">We design and build iOS, Android and web apps from scratch around your business model and target customers — helping you launch new services under your own brand.</p></div>
+      </div>
+      <div class="svc">
+        <div class="top"><div class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M2 3h3l2.6 12.4a1.5 1.5 0 0 0 1.5 1.1h8.6a1.5 1.5 0 0 0 1.5-1.1L21 7H6"/></svg></div><span class="no">02 / 03</span></div>
+        <div><h3><span class="t-zh">電商與代購平台</span><span class="t-en">E-commerce &amp; Procurement Platforms</span></h3><div class="en t-zh">E-commerce &amp; Procurement Platforms</div>
+        <p class="t-zh">為你度身打造網店、代購或跨境零售平台，整合訂單管理、庫存、支付與物流追蹤，助你輕鬆開拓新市場。</p>
+        <p class="t-en">Custom online stores, procurement and cross-border retail platforms with order management, inventory, payments and logistics tracking built in — so you can open new markets with ease.</p></div>
+      </div>
+      <div class="svc">
+        <div class="top"><div class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><circle cx="18" cy="6" r="3"/><path d="M9 6h6M6 9v4a2 2 0 0 0 2 2h7"/></svg></div><span class="no">03 / 03</span></div>
+        <div><h3><span class="t-zh">企業流程自動化</span><span class="t-en">Business Process Automation</span></h3><div class="en t-zh">Business Process Automation</div>
+        <p class="t-zh">按你的營運流程，利用 AI、API 串接及智慧工作流，省去繁瑣的人手操作，降低營運成本，實現數字化轉型。</p>
+        <p class="t-en">AI, API integrations and smart workflows built around your operations — eliminating tedious manual work, cutting costs and driving digital transformation.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4b. Process -->
+<section id="process">
+  <div class="wrap">
+    <div class="label"><b>(04)</b>How We Work</div>
+    <div class="sec-top">
+      <h2><span class="t-zh">與你同行的<br>合作旅程</span><span class="t-en">Your journey,<br>step by step</span></h2>
+      <p class="zh"><span class="t-zh">由第一次傾談到產品上線，我們以敏捷方式與你緊密合作，確保每一步都貼合你的業務目標。</span><span class="t-en">From our first conversation to launch day, we work closely with you in agile cycles, so every step stays aligned with your business goals.</span></p>
+    </div>
+    <div class="steps zh">
+      <div class="step"><span class="dot"></span><div class="sn">STEP 01</div><div class="si"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></div>
+        <h3><span class="t-zh">了解需求</span><span class="t-en">Discover</span></h3>
+        <p class="t-zh">深入了解你的業務、目標客群及痛點，一起定義產品方向。</p><p class="t-en">We dive into your business, customers and pain points to define the product direction together.</p></div>
+      <div class="step"><span class="dot"></span><div class="sn">STEP 02</div><div class="si"><svg class="i" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/></svg></div>
+        <h3><span class="t-zh">設計方案</span><span class="t-en">Design</span></h3>
+        <p class="t-zh">規劃功能、用戶旅程 (User Journey) 及介面設計，確保體驗直觀易用。</p><p class="t-en">We map out features, user journeys and interface design for an intuitive experience.</p></div>
+      <div class="step"><span class="dot"></span><div class="sn">STEP 03</div><div class="si"><svg class="i" viewBox="0 0 24 24"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6M14 4l-4 16"/></svg></div>
+        <h3><span class="t-zh">敏捷開發</span><span class="t-en">Build</span></h3>
+        <p class="t-zh">以敏捷方式分階段開發，定期展示進度，隨時按你的回饋調整。</p><p class="t-en">We build in agile sprints with regular demos, adapting to your feedback along the way.</p></div>
+      <div class="step"><span class="dot"></span><div class="sn">STEP 04</div><div class="si"><svg class="i" viewBox="0 0 24 24"><path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></svg></div>
+        <h3><span class="t-zh">上線與成長</span><span class="t-en">Launch &amp; Grow</span></h3>
+        <p class="t-zh">協助產品上線，並提供持續維護及升級，陪你的業務一起成長。</p><p class="t-en">We launch your product and provide ongoing maintenance and upgrades as your business grows.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Why -->
+<section id="why">
+  <div class="wrap">
+    <div class="label"><b>(05)</b>Why Choose Us</div>
+    <div class="sec-top"><h2><span class="t-zh">為什麼選擇<br>ASJ Multiverse？</span><span class="t-en">Why choose<br>ASJ Multiverse?</span></h2></div>
+    <div class="why-list zh">
+      <div class="row"><div class="n">01</div><h3><span class="t-zh">快速部署</span><span class="t-en">Fast Time-to-Market</span><small><span class="t-zh">Fast Time-to-Market</span></small><span class="tagx">A · AGILE</span></h3><p><span class="t-zh">現成的成熟技術模組，讓你的業務概念以最快速度落地。</span><span class="t-en">Proven, ready-made modules get your business idea to market at top speed.</span></p><div class="ri"><svg class="i" viewBox="0 0 24 24"><path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></svg></div></div>
+      <div class="row"><div class="n">02</div><h3><span class="t-zh">高度擴展性</span><span class="t-en">Scalability</span><small><span class="t-zh">Scalability</span></small><span class="tagx">S · SOLUTIONS</span></h3><p><span class="t-zh">隨着業務增長，平台架構能無縫升級，應付龐大流量與業務擴張。</span><span class="t-en">As you grow, the platform scales seamlessly to handle massive traffic and business expansion.</span></p><div class="ri"><svg class="i" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-6"/><path d="M15 8h5v5"/></svg></div></div>
+      <div class="row"><div class="n">03</div><h3><span class="t-zh">專屬技術支援</span><span class="t-en">Dedicated Support</span><small><span class="t-zh">Dedicated Support</span></small><span class="tagx">J · JOURNEY</span></h3><p><span class="t-zh">我們不單提供系統，更提供全方位的技術諮詢與維護，與你同行每一步，讓你專注發展商業核心。</span><span class="t-en">Beyond the system, we provide end-to-end technical consulting and maintenance — with you at every step, so you can focus on your core business.</span></p><div class="ri"><svg class="i" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2.5" y="14" width="4" height="6" rx="1.5"/><rect x="17.5" y="14" width="4" height="6" rx="1.5"/><path d="M19.5 20a3 3 0 0 1-3 2.5H13"/></svg></div></div>
+    </div>
+    <div class="aud zh"><span class="t-zh" style="border:none;padding:0;color:inherit;font-weight:400">專為以下企業而設 →</span><span class="t-en" style="border:none;padding:0;color:inherit;font-weight:400">Built for →</span><span><span class="t-zh">中小型企業</span><span class="t-en">SMEs</span></span><span><span class="t-zh">初創公司</span><span class="t-en">Start-ups</span></span><span><span class="t-zh">想發展新業務的企業</span><span class="t-en">Companies launching new ventures</span></span></div>
+  </div>
+</section>
+
+<!-- 6. Contact -->
+<section id="contact">
+  <div class="wrap ct">
+    <div>
+      <div class="label" style="color:#8d8c85"><b style="color:#d4ff3a">(06)</b>Contact Us</div>
+      <h2><span class="t-zh">準備好與我們開展<br>你的 <span class="lime">Multiverse</span> 旅程嗎？</span><span class="t-en">Ready to start your <span class="lime">Multiverse</span> journey?</span></h2>
+      <p class="zh"><span class="t-zh">立即與我們的技術團隊聊聊你的商業構想，讓我們助你把想法化為現實。</span><span class="t-en">Talk to our tech team about your business idea today — and let us help turn it into reality.</span></p>
+      <a class="mail" href="mailto:contact@asjmultiverse.com"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>contact@asjmultiverse.com</a>
+    </div>
+    <form class="zh" onsubmit="return sent(this)">
+      <div class="two">
+        <div class="f"><label><span class="t-zh">姓名 *</span><span class="t-en">Name *</span></label><input required></div>
+        <div class="f"><label><span class="t-zh">公司名稱</span><span class="t-en">Company</span></label><input></div>
+      </div>
+      <div class="f"><label><span class="t-zh">聯絡電話 *</span><span class="t-en">Phone *</span></label><input required type="tel"></div>
+      <div class="f"><label><span class="t-zh">業務需求簡述</span><span class="t-en">Tell us about your idea</span></label><textarea></textarea></div>
+      <div><button class="pill pill-lime" type="submit"><span class="t-zh">提交查詢</span><span class="t-en">Send Enquiry</span><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    </form>
+  </div>
+</section>
+
+<div class="big-name">MULTIVERSE</div>
+<footer>
+  <div class="wrap"><span>© 2026 ASJ Multiverse Limited. All rights reserved.</span><span>Empowering your Journey with Agile Solutions<span class="t-zh"> · 靈活創新，開拓無限旅程</span></span></div>
+</footer>
+
+<script>
+  function setLang(l){
+    var h=document.documentElement;
+    h.classList.toggle('en',l==='en');
+    h.lang=(l==='en')?'en':'zh-Hant';
+    document.querySelectorAll('.lang button').forEach(function(b){b.classList.toggle('on',b.dataset.l===l)});
+    document.title=(l==='en')?'ASJ Multiverse — Empowering your Journey with Agile Solutions':'ASJ Multiverse — 靈活創新，開拓無限旅程';
+    try{localStorage.setItem('asj-lang',l)}catch(e){}
+  }
+  function sent(f){
+    var en=document.documentElement.classList.contains('en');
+    alert(en?'Thanks for your enquiry! We will be in touch soon. (Demo only — form not connected yet)':'多謝你的查詢！我們會盡快與你聯絡。（示範版本，表格未連接後台）');
+    f.reset();return false;
+  }
+  var saved=null;try{saved=localStorage.getItem('asj-lang')}catch(e){}
+  setLang(saved||'zh');
+</script>
+</body>
+</html>
